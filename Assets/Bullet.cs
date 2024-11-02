@@ -3,7 +3,6 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public int life = 3;
-    public int count = EnemySpawner.killCount;
 
     void Awake()
     {
