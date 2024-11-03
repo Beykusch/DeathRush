@@ -11,6 +11,8 @@ public class DedeKayma : MonoBehaviour
     public float rechargeAmount = 2;// Amount of time to "recharge" when button is pressed
     public float dechargeAmount = 2;
 
+    public GameObject youDiedMessage;
+
     public static DedeKayma instance;
 
 
@@ -31,6 +33,11 @@ public class DedeKayma : MonoBehaviour
             progressBar.transform.position = (startPosition + destination) / 2; // Position bar in the center
             float totalDistance = Vector2.Distance(startPosition, destination);
             progressBar.transform.localScale = new Vector3(totalDistance, progressBar.transform.localScale.y, progressBar.transform.localScale.z); // Full length at the start
+        }
+
+        if (youDiedMessage != null)
+        {
+            youDiedMessage.SetActive(false); // Hide "You Died" message initially
         }
     }
 
@@ -73,7 +80,16 @@ public class DedeKayma : MonoBehaviour
 
             }
         }
-        
+        else
+        {
+            // Display "You Died" message if the duration has been reached
+            if (youDiedMessage != null && !youDiedMessage.activeSelf)
+            {
+                youDiedMessage.SetActive(true);
+                Debug.Log("You Died!");
+            }
+        }
+
     }
 
 }
