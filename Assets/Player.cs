@@ -4,43 +4,56 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public GameObject button1;
+    public GameObject button2;
+    public GameObject button3;
     //variables for Shoot()
     public Transform bulletSpawnPoint;
     public GameObject bulletPrefab;
-    public float bulletSpeed = 10;
+    public float bulletSpeed = 30;
 
     //variables for UpdateReqCombo
     private int inputInt;
     private int count;
     private int reqCombo1, reqCombo2, reqCombo3;
 
+    public SpriteRenderer[] directionSprites; // Array of SpriteRenderers to show each direction
+    public Sprite[] sprites; // Array of possible sprites for each direction (e.g., 0=Up, 1=Left, 2=Down, 3=Right)
+
     void Start()
     {
         UpdateReqCombo();
+        button1.SetActive(true);
+        button2.SetActive(true);
+        button3.SetActive(true);
     }
 
-    
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Shoot();
+        }
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             inputInt = 1;
             Bruh();
         }
 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             inputInt = 2;
             Bruh();
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             inputInt = 3;
             Bruh();
         }
 
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             inputInt = 4;
             Bruh();
@@ -118,10 +131,21 @@ public class Player : MonoBehaviour
         reqCombo2 = Random.Range(1, 5);
         reqCombo3 = Random.Range(1, 5);
 
-        print(reqCombo1);
-        print(reqCombo2);
-        print(reqCombo3);
+        print("Combo Sequence: " + reqCombo1 + ", " + reqCombo2 + ", " + reqCombo3);
 
-        //prints will change sprites
+        // Update direction sprites based on new combo
+        UpdateDirectionSprite(0, reqCombo1); // First direction
+        UpdateDirectionSprite(1, reqCombo2); // Second direction
+        UpdateDirectionSprite(2, reqCombo3); // Third direction
+
+
+    }
+
+    private void UpdateDirectionSprite(int index, int direction)
+    {
+        if (index < directionSprites.Length && direction - 1 < sprites.Length)
+        {
+            directionSprites[index].sprite = sprites[direction - 1];
+        }
     }
 }
