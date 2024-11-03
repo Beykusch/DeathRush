@@ -10,7 +10,6 @@ public class DedeKayma : MonoBehaviour
     public GameObject progressBar; // Assign a thin, small GameObject to act as the bar
     public float rechargeAmount = 2;// Amount of time to "recharge" when button is pressed
     public float dechargeAmount = 2;
-    public GameObject you_died_text;
 
     public static DedeKayma instance;
 
@@ -52,7 +51,7 @@ public class DedeKayma : MonoBehaviour
         {
             // Increase the elapsed time
             elapsedTime += Time.deltaTime;
-
+            
             // Calculate the interpolation factor as a percentage of the duration
             float t = elapsedTime / duration;
 
@@ -76,4 +75,5 @@ public class DedeKayma : MonoBehaviour
         }
         
     }
+
 }
