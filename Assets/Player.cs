@@ -56,6 +56,7 @@ public class Player : MonoBehaviour
                 if (inputInt == reqCombo1)
                 {
                     count++;
+                    Debug.Log("anan0");
                 }
 
                 break;
@@ -65,10 +66,12 @@ public class Player : MonoBehaviour
                 if (inputInt == reqCombo2)
                 {
                     count++;
+                    Debug.Log("anan1");
                 }
                 else
                 {
                     count = 0;
+                    Debug.Log("anan1 else");
                 }
 
                 break;
@@ -78,21 +81,26 @@ public class Player : MonoBehaviour
                 if (inputInt == reqCombo3)
                 {
                     count++;
+                    Debug.Log("anan2");
                 }
                 else
                 {
+                    Debug.Log("anan2 else");
                     count = 0;
                 }
 
                 if (count >= 3)
                 {
+                    Debug.Log("anan3");
                     Shoot();
                     UpdateReqCombo();
                     count = 0;
                     Bruh();
                 }
 
+                Debug.Log("out of switch");
                 break;
+                
 
         }
 
