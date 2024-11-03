@@ -465,7 +465,8 @@ Transform:
   m_LocalPosition: {x: 0.07, y: 0.05, z: 0}
   m_LocalScale: {x: 3.9329646, y: 3.0923915, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1503768886}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &367915109
@@ -1673,7 +1674,6 @@ Transform:
   - {fileID: 1580844711}
   - {fileID: 1578422518}
   - {fileID: 822491060}
-  - {fileID: 1503768886}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1503768885
@@ -1694,7 +1694,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1503768886
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1708,7 +1708,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1739069722}
-  m_Father: {fileID: 1391391086}
+  m_Father: {fileID: 218039984}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2330,7 +2330,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1739069724}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1924655408}
+        m_TargetAssemblyTypeName: RestartSystem, Assembly-CSharp
+        m_MethodName: ResetScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1739069724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2409,8 +2421,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1924655407}
+  - component: {fileID: 1924655408}
   m_Layer: 0
-  m_Name: RestartScene
+  m_Name: RestartSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2431,6 +2444,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1924655408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924655406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b244f290630b5d419607e7f665dfda6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2012095248
 GameObject:
   m_ObjectHideFlags: 0
