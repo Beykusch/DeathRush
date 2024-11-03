@@ -8,7 +8,8 @@ public class DedeKayma : MonoBehaviour
     public float duration = 20f; // Duration in seconds
 
     public GameObject progressBar; // Assign a thin, small GameObject to act as the bar
-    public float rechargeAmount = 2; // Amount of time to "recharge" when button is pressed
+    public float rechargeAmount = 2;// Amount of time to "recharge" when button is pressed
+    public float dechargeAmount = 2;
     public GameObject you_died_text;
 
     public static DedeKayma instance;
@@ -39,15 +40,13 @@ public class DedeKayma : MonoBehaviour
         elapsedTime = Mathf.Max(0, elapsedTime - rechargeAmount);
     }
 
+    public void DedeAzalt()
+    {
+        elapsedTime = Mathf.Max(0, elapsedTime + dechargeAmount);
+    }
+
     void Update()
     {
-        // Handle button press to increase the bar (space bar in this example)
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            // Reduce elapsedTime to "recharge" the bar
-            DedeArttır();
-        }
-
         // Update movement and progress bar as usual
         if (elapsedTime < duration)
         {

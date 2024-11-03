@@ -8,6 +8,7 @@ public class CollisionEnemy : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Enemy"))
         {
+            DedeKayma.instance.DedeAzalt();
             Destroy(col.gameObject);
 
         }
