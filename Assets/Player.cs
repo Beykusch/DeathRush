@@ -7,12 +7,12 @@ public class Player : MonoBehaviour
     public GameObject button1;
     public GameObject button2;
     public GameObject button3;
-    //variables for Shoot()
+    // Variables for Shoot()
     public Transform bulletSpawnPoint;
     public GameObject bulletPrefab;
     public float bulletSpeed = 30;
 
-    //variables for UpdateReqCombo
+    // Variables for UpdateReqCombo
     private int inputInt;
     private int count;
     private int reqCombo1, reqCombo2, reqCombo3;
@@ -20,14 +20,16 @@ public class Player : MonoBehaviour
     public SpriteRenderer[] directionSprites; // Array of SpriteRenderers to show each direction
     public Sprite[] sprites; // Array of possible sprites for each direction (e.g., 0=Up, 1=Left, 2=Down, 3=Right)
 
+    private Animator animator; // Reference to the Animator component
+
     void Start()
     {
+        animator = GetComponent<Animator>(); // Get the Animator component
         UpdateReqCombo();
         button1.SetActive(true);
         button2.SetActive(true);
         button3.SetActive(true);
     }
-
 
     void Update()
     {
@@ -65,35 +67,35 @@ public class Player : MonoBehaviour
         switch (count)
         {
             case 0:
-
                 if (inputInt == reqCombo1)
                 {
+                    DisablePressedSprite(0);
                     count++;
                 }
-
                 break;
 
             case 1:
-
                 if (inputInt == reqCombo2)
                 {
+                    DisablePressedSprite(1);
                     count++;
                 }
                 else
                 {
+                    ResetSprites();
                     count = 0;
                 }
-
                 break;
 
             case 2:
-
                 if (inputInt == reqCombo3)
                 {
+                    DisablePressedSprite(2);
                     count++;
                 }
                 else
                 {
+                    ResetSprites();
                     count = 0;
                 }
 
@@ -104,18 +106,26 @@ public class Player : MonoBehaviour
                     count = 0;
                     Bruh();
                 }
-
                 break;
-                
-
         }
-
     }
 
     public void Shoot()
     {
+        animator.SetBool("isShooting", true); // Set isShooting to true
+
         var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         bullet.GetComponent<Rigidbody2D>().linearVelocity = bulletSpawnPoint.right * bulletSpeed;
+
+        // Call a coroutine to reset isShooting after a short delay (if needed)
+        StartCoroutine(ResetShootingState());
+    }
+
+    private IEnumerator ResetShootingState()
+    {
+        // Wait for a short time (adjust this duration to fit your animation)
+        yield return new WaitForSeconds(0.5f); // Adjust the time as needed
+        animator.SetBool("isShooting", false); // Set isShooting back to false
     }
 
     public void UpdateReqCombo()
@@ -130,8 +140,6 @@ public class Player : MonoBehaviour
         UpdateDirectionSprite(0, reqCombo1); // First direction
         UpdateDirectionSprite(1, reqCombo2); // Second direction
         UpdateDirectionSprite(2, reqCombo3); // Third direction
-
-
     }
 
     private void UpdateDirectionSprite(int index, int direction)
@@ -140,5 +148,21 @@ public class Player : MonoBehaviour
         {
             directionSprites[index].sprite = sprites[direction - 1];
         }
+    }
+
+    private void DisablePressedSprite(int index)
+    {
+        if (index < directionSprites.Length)
+        {
+            directionSprites[index].sprite = null; // Set to null or any default sprite
+        }
+    }
+
+    private void ResetSprites()
+    {
+        // Restore sprites to the required combo sprites if the combo is broken
+        UpdateDirectionSprite(0, reqCombo1);
+        UpdateDirectionSprite(1, reqCombo2);
+        UpdateDirectionSprite(2, reqCombo3);
     }
 }

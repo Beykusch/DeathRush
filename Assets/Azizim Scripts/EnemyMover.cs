@@ -2,11 +2,11 @@ using UnityEngine;
 
 
 
-public class EnemyMovement : MonoBehaviour
+public class EnemyMover : MonoBehaviour
 
 {
 
-    public float speed = 2f; // Speed at which the enemy moves
+    public static float enemySpeed = 2f; // Speed at which the enemy moves
 
     private SpriteRenderer spriteRenderer; // Reference to the SpriteRenderer
 
@@ -15,12 +15,9 @@ public class EnemyMovement : MonoBehaviour
 
     private void Start()
 
-    {
-        
+    {  
         // Get the SpriteRenderer component
-
         spriteRenderer = GetComponent<SpriteRenderer>();
-
     }
 
     
@@ -33,7 +30,7 @@ public class EnemyMovement : MonoBehaviour
 
         // Move the enemy to the left
 
-        transform.Translate(Vector3.left * speed * Time.deltaTime);
+        transform.Translate(Vector3.left * enemySpeed * Time.deltaTime);
 
 
 

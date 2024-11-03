@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour
     public float intervalDecreaseAmount = 0.2f; // Amount to decrease the interval
     public int killThreshold = 10; // Number of kills needed to decrease the interval
     public Transform[] spawnPoints; // Array of spawn points
+    public float speedIncreaseAmount = 0.5f; // Amount to increase enemy speed
     public static int killCount = 0; // Kill count
 
     private void Start()
@@ -24,7 +25,17 @@ public class EnemySpawner : MonoBehaviour
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
         // Instantiate the enemy prefab at the spawn point
-        Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+        GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+
+        // Increase enemy speed if applicable
+        EnemyMover enemyMover = enemy.GetComponent<EnemyMover>();
+        if (enemyMover != null)
+        {
+            // Calculate new speed based on kill count and threshold
+            float newSpeed = (killCount / killThreshold) * speedIncreaseAmount;
+            EnemyMover.enemySpeed += newSpeed;
+            Debug.Log($"Spawned enemy with speed: {EnemyMover.enemySpeed}");
+        }
     }
 
     public void UpdateSpawnInterval()
@@ -36,6 +47,7 @@ public class EnemySpawner : MonoBehaviour
             spawnInterval = Mathf.Max(minSpawnInterval, spawnInterval - intervalDecreaseAmount);
 
             Debug.Log($"Current spawn interval: {spawnInterval}");
+            Debug.Log($"Updated kill count: {killCount}");
 
             // Restart the spawn invocation with the new interval
             CancelInvoke("SpawnEnemy");
